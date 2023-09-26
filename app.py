@@ -1,10 +1,9 @@
 from flask import Flask, render_template,jsonify,request
-import os 
+import dotenv
+dotenv.load_dotenv()
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-
-os.environ.setdefault("DB_USER","Dayvison")
-os.environ.setdefault("DB_PASS", "hRHJq0ovjYoxvUCT")
+import os
 
 uri = 'mongodb+srv://'+os.environ.get("DB_USER")+':'+os.environ.get("DB_PASS")+"@cluster0.3v8vfkh.mongodb.net/?retryWrites=true&w=majority"
 
@@ -20,7 +19,7 @@ except Exception as e:
 
 db = client['match']
 collection = db['users']
-collection.insert_one({'name':"dayvison","server":"rodou o update"})
+collection.insert_one({'name':"dayvison","server":"rodou o update com mongo"})
 
 app = Flask(__name__)
 
