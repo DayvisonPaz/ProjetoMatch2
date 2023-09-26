@@ -11,8 +11,9 @@ async function verificar(){
     //let cep = document.getElementById('cep').value
     //let date = document.getElementById('date').value
     //document.getElementById('erro').style.visibility ='visible'
-let resposta = await fetch('/api/users').data()
-console.log(resposta)
+let resposta = await fetch('/api/users')
+const movies = await resposta.json();
+console.log(movies)
 }
 
 //https://cdn.apicep.com/file/apicep/36950-000.json
