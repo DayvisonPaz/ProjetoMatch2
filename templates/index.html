@@ -11,6 +11,7 @@ async function verificar(){
     //let cep = document.getElementById('cep').value
     //let date = document.getElementById('date').value
     //document.getElementById('erro').style.visibility ='visible'
+    
 let resposta = await fetch('/api/users')
 const movies = await resposta.json();
 console.log(movies)
