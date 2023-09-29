@@ -52,11 +52,12 @@ async def index(cep):
 @app.route("/api/users", methods = ['POST'])
 def get_users():
     username = request.form['name']
-    print(username)
+    cep = request.form['cep']
+    adress = request.form['adress']
     return username
     db = client['match']
     collection = db['users']
-    collection.insert_one({'name':"dayvison","server":"rodou o update com mongodb"})
+    collection.insert_one({'name':username,cep:})
 
 @app.route("/api/age",endpoint='age')
 def index():
