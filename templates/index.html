@@ -148,12 +148,13 @@ margin: 0;
 <div class="form"> 
     <div id="erro" class="menssage">error</div>
 <p class="date"> Domingo 8 de outubro de 2023</p>
-<input placeholder="name"  id='name'class="name" type="text"><input id='date' type="date">
-<input id="cep" placeholder="cep" class="cep" type="text">
+<form method="POST" action="/api/users"> <input placeholder="name" name='name'  id='name'class="name" type="text"><input class="date" id='date' type="date">
+<input id="cep" name="cep" placeholder="cep" class="cep" type="text">
 
 <input class='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
 <p id='checkbox' class="checkbox"><input class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
-<button class="button" onclick="verificar()">verificar </button>
+<input type="submit" class="button" onclick="verificar()"/> </form>
+
 
 
 <p class="date">18h00 GMT – 12h05 às 17h55 BRT</p>

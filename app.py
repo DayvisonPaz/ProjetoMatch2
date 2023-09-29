@@ -25,6 +25,10 @@ except Exception as e:
 
 
 app = Flask(__name__)
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 
 @app.route("/api/cep/<cep>",endpoint='cep') 
 async def index(cep):
@@ -45,18 +49,11 @@ async def index(cep):
     await asyncio.sleep(1)
     return jsonify(data)
     
-
-@app.route("/api/cadastrar",methods=[POST])
-def index():
-    return render_template("index.html")
-
-@app.route("/api/users", methods = ['GET'])
+@app.route("/api/users", methods = ['POST'])
 def get_users():
-   if(request.method == 'GET'):
-        data = {
-            "Modules" : 15,
-            "Subject" : "Data Structures and Algorithms",
-        }
+    username = request.form['name']
+    print(username)
+    return username
     db = client['match']
     collection = db['users']
     collection.insert_one({'name':"dayvison","server":"rodou o update com mongodb"})
