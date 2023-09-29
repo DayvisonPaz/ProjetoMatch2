@@ -3,6 +3,8 @@ import dotenv
 import datetime
 import requests
 import json 
+import asyncio
+import threading
 dotenv.load_dotenv()
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -24,36 +26,40 @@ except Exception as e:
 
 app = Flask(__name__)
 
-@app.route("/api/cep/<cep>",endpoint='cep')
-def index():
-    newcep = cep[0:6]
-    res = requests.get('https://cdn.apicep.com/file/apicep/01153-000.json')
+@app.route("/api/cep/<cep>",endpoint='cep') 
+async def index(cep):
+    data={"msg":""}
+    newcep = ''
+    if(cep[5]=='-'):
+        newcep =cep
+    else: 
+        newcep = cep[0:5]+'-'+cep[5:11]
+
+    link = 'https://cdn.apicep.com/file/apicep/'+newcep+'.json'
+   
+    res = requests.get(link)
     response = json.loads(res.text)
+    state = response['state']
+    if state !="SP":  data['msg'] = 'not from de sp'
+    else:   data['msg'] = 'from sp'
+    await asyncio.sleep(1)
+    return jsonify(data)
     
-    def verify(x):
-        if x != "SP":
-            print("esse cep não é de SP")  
-        else: print('esse cep é de SP')
-    
-    verify(response['state'])
 
-    return response
+@app.route("/api/cadastrar",methods=[POST])
+def index():
+    return render_template("index.html")
 
-
-# @app.route("/")
-# def index():
-#     return render_template("index.html")
-
-# @app.route("/api/users", methods = ['GET'])
-# def get_users():
-#    if(request.method == 'GET'):
-#         data = {
-#             "Modules" : 15,
-#             "Subject" : "Data Structures and Algorithms",
-#         }
-#     db = client['match']
-#     collection = db['users']
-#     collection.insert_one({'name':"dayvison","server":"rodou o update com mongodb"})
+@app.route("/api/users", methods = ['GET'])
+def get_users():
+   if(request.method == 'GET'):
+        data = {
+            "Modules" : 15,
+            "Subject" : "Data Structures and Algorithms",
+        }
+    db = client['match']
+    collection = db['users']
+    collection.insert_one({'name':"dayvison","server":"rodou o update com mongodb"})
 
 @app.route("/api/age",endpoint='age')
 def index():
