@@ -23,12 +23,12 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
 @app.route("/api/cep",endpoint='cep',methods=['POST']) 
 async def index():
-    content_type = request.headers.get('Content-Type')
+    content_type = request.headers.get('body')
     if (content_type == 'application/json'):
         body = request.json
+        print('requisitou cep')
         data={"msg":"",'status':""}
         newcep = ''
         cep= body["cep"]
@@ -65,28 +65,31 @@ def get_users():
 
 @app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
-    content_type = request.headers.get('Content-Type')
-    print('entrou')
-    if (content_type == 'application/json'):
-        json = request.json
-        current_date = datetime.datetime.now()
-        x = str(current_date)
-        born = json["age"]
-        y= int(born[6:10])
-        m = int(born[4:5])
-        d= int(born[0:2])
-        year = int(x[0:4])- y
-        month= int(x[5:7])- m
-        day= int(x[8:10])-d
-        data={"msg":'1'}
-        if (year>18): data['msg']='é de maior'
-        elif (year<17):  data['msg']='é de menor'
-        elif (month>=0 and day>=0):  data['msg']='é de maior '
-        else:  data['msg'] ='é de menor'
-        return jsonify(data)
-    else:
-        return 'Content-Type not supported!'
-   
+    data = request.json
+    print(data.get('cep'))
+    return jsonify({msg:"sucesso"})
+    # content_type = request.headers.get('body')
+    # if (content_type == 'application/json'):
+    #     json = request.json
+    #     current_date = datetime.datetime.now()
+    #     print('requsitou age')
+    #     x = str(current_date)
+    #     born = json["age"]
+    #     y= int(born[6:10])
+    #     m = int(born[4:5])
+    #     d= int(born[0:2])
+    #     year = int(x[0:4])- y
+    #     month= int(x[5:7])- m
+    #     day= int(x[8:10])-d
+    #     data={"msg":'1'}
+    #     if (year>18): data['msg']='é de maior'
+    #     elif (year<17):  data['msg']='é de menor'
+    #     elif (month>=0 and day>=0):  data['msg']='é de maior '
+    #     else:  data['msg'] ='é de menor'
+    #     return jsonify(data)
+    # else:
+    #     return 'Content-Type not supported!'
+  
     
 
 

@@ -13,8 +13,8 @@ let date = document.getElementById('date').value
 let ifCep = await fetch('/api/cep',{method:"POST",headers:{'cep' : cep}})
 let ifAge = await fetch('/api/age',{method:"POST",headers:{'age' : date}})
 
-console.log(ifCep.data)
-console.log(ifAge.data)
+console.log(ifCep)
+console.log(ifAge)
 
 }
 
