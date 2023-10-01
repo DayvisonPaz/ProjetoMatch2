@@ -4,24 +4,18 @@ import datetime
 import requests
 import json 
 import asyncio
-import threading
 dotenv.load_dotenv()
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os
 
 uri = 'mongodb+srv://'+os.environ.get("DB_USER")+':'+os.environ.get("DB_PASS")+"@cluster0.3v8vfkh.mongodb.net/?retryWrites=true&w=majority"
-
-# Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 
-# Send a ping to confirm a successful connection
 try:
     client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
-
 
 
 app = Flask(__name__)
@@ -30,55 +24,70 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/api/cep/<cep>",endpoint='cep') 
-async def index(cep):
-    data={"msg":""}
-    newcep = ''
-    if(cep[5]=='-'):
-        newcep =cep
-    else: 
-        newcep = cep[0:5]+'-'+cep[5:11]
-
-    link = 'https://cdn.apicep.com/file/apicep/'+newcep+'.json'
-   
-    res = requests.get(link)
-    response = json.loads(res.text)
-    state = response['state']
-    if state !="SP":  data['msg'] = 'not from de sp'
-    else:   data['msg'] = 'from sp'
-    await asyncio.sleep(1)
-    return jsonify(data)
+@app.route("/api/cep",endpoint='cep',methods=['POST']) 
+async def index():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        body = request.json
+        data={"msg":"",'status':""}
+        newcep = ''
+        cep= body["cep"]
+        if(cep[5]=='-'):
+            newcep =cep
+        else: 
+            newcep = cep[0:5]+'-'+cep[5:11]
+        link = 'https://cdn.apicep.com/file/apicep/'+newcep+'.json'
+        res = requests.get(link)
+        response = json.loads(res.text)
+        state = response['state']
+        if state !='SP': return jsonify({'msg':"O cep informado nao e de SP",'Status':"401"})  
+        else:return jsonify({"status":"200"})
+        await asyncio.sleep(1)
+        return jsonify(data)
+    
+    else:
+        return 'Content-Type not supported!'
     
 @app.route("/api/users", methods = ['POST'])
 def get_users():
     username = request.form['name']
     cep = request.form['cep']
     adress = request.form['adress']
+    
     return username
-    db = client['match']
-    collection = db['users']
-    collection.insert_one({'name':username,cep:})
 
-@app.route("/api/age",endpoint='age')
+    # db = client['match']
+    # collection = db['users']
+    # collection.insert_one({'name':username,cep:})
+
+
+
+
+@app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
-    current_date = datetime.datetime.now()
-    x = str(current_date)
-#print(x[0:10])
-    born = '27/09/2001'
-    y= int(born[6:10])
-    m = int(born[4:5])
-    d= int(born[0:2])
-#print(type(type (x[0:4])))
-    year = int(x[0:4])- y
-    month= int(x[5:7])- m
-    day= int(x[8:10])-d
-    data={"msg":'1'}
-    if (year>18): data['msg']='é de maior'
-    elif (year<17):  data['msg']='é de menor'
-    elif (month>=0 and day>=0):  data['msg']='é de maior '
-    else:  data['msg'] ='é de menor'
-
-    return jsonify(data)
+    content_type = request.headers.get('Content-Type')
+    print('entrou')
+    if (content_type == 'application/json'):
+        json = request.json
+        current_date = datetime.datetime.now()
+        x = str(current_date)
+        born = json["age"]
+        y= int(born[6:10])
+        m = int(born[4:5])
+        d= int(born[0:2])
+        year = int(x[0:4])- y
+        month= int(x[5:7])- m
+        day= int(x[8:10])-d
+        data={"msg":'1'}
+        if (year>18): data['msg']='é de maior'
+        elif (year<17):  data['msg']='é de menor'
+        elif (month>=0 and day>=0):  data['msg']='é de maior '
+        else:  data['msg'] ='é de menor'
+        return jsonify(data)
+    else:
+        return 'Content-Type not supported!'
+   
+    
 
 
 

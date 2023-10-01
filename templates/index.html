@@ -7,14 +7,15 @@
     <script >
      
 async function verificar(){
-    //let name = document.getElementById('name').value
-    //let cep = document.getElementById('cep').value
-    //let date = document.getElementById('date').value
-    //document.getElementById('erro').style.visibility ='visible'
     
-let resposta = await fetch('/api/users')
-const movies = await resposta.json();
-console.log(movies)
+let cep = document.getElementById('cep').value
+let date = document.getElementById('date').value
+let ifCep = await fetch('/api/cep',{method:"POST",headers:{'cep' : cep}})
+let ifAge = await fetch('/api/age',{method:"POST",headers:{'age' : date}})
+
+console.log(ifCep.data)
+console.log(ifAge.data)
+
 }
 
 //https://cdn.apicep.com/file/apicep/36950-000.json
@@ -22,8 +23,6 @@ console.log(movies)
     <style>
 body{
 background-image: url('https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_1280.jpg');
-
-
 display: flex;
 width:100vw;
 height: 100vh;
@@ -81,7 +80,6 @@ display: flex;
 .form{
  background-color: #01010b;	
 text-align: center;
-
 height: 100%;
 width: 60%;    
 }
@@ -91,6 +89,7 @@ color: #000;
 margin: 10px;
 }
 .date {
+    
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 	font-weight: 700;
@@ -138,7 +137,15 @@ display: none;
 padding: 0;
 margin: 0;
 }
-
+.submit{
+    display: none;
+}
+.cep{
+    display: flex;
+}
+.line{
+    display: flex;
+}
     </style>
 </head>
 <body>
@@ -148,13 +155,13 @@ margin: 0;
 <div class="form"> 
     <div id="erro" class="menssage">error</div>
 <p class="date"> Domingo 8 de outubro de 2023</p>
-<form method="POST" action="/api/users"> <input placeholder="name" name='name'  id='name'class="name" type="text"><input class="date" id='date' type="date">
-<input id="cep" name="cep" placeholder="cep" class="cep" type="text">
-
-<input class='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
-<p id='checkbox' class="checkbox"><input class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
-<input type="submit" class="button" onclick="verificar()"/> </form>
-
+<form class="inputs" method="POST" action="/api/users">
+<input placeholder="name" required name='name'  id='name'class="name" type="text">
+<div class="line"><input class="date" id='date' type="date"><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>
+<input required class='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
+<p id='checkbox' class="checkbox"><input required class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
+<input type="submit" class="submit" value='cadastrar' name=""/> </form>
+<button class="button" onclick="verificar()">verificar</button>
 
 
 <p class="date">18h00 GMT – 12h05 às 17h55 BRT</p>
