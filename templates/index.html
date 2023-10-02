@@ -7,23 +7,18 @@
     <script >
      
 async function verificar(){
-    
-// let cep = document.getElementById('cep').value
-// let date = document.getElementById('date').value
+let cep = document.getElementById('cep').value
+let date = document.getElementById('date').value
+let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({'cep' : cep}),'Content-type':'application/json', 
+    'Accept':'application/json'}})
+let ifAge = await fetch('/api/age',{method:"POST",headers:{body:JSON.stringify({'age' : date}),'Content-type':'application/json', 
+    'Accept':'application/json'}})
 
-// let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({'cep' : cep}),'Content-type':'application/json', 
-//     'Accept':'application/json'}})
-// let ifAge = await fetch('/api/age',{method:"POST",headers:{body:JSON.stringify({'age' : date}),'Content-type':'application/json', 
-//     'Accept':'application/json'}})
+ if(ifAge.status==200 & ifCep.status==200){
 
-document.getElementById("verificar").style.display='none'
-document.getElementById("checkbox").style.display='block'
-document.getElementById("submit").style.display='block'
-// if(ifAge.status==200 & ifCep.status==200){
-
-// }
-
- }
+    document.getElementById("verificar").style.display='none'
+    document.getElementById("checkbox").style.display='block'
+    document.getElementById("submit").style.display='block'} }
 
 //https://cdn.apicep.com/file/apicep/36950-000.json
     </script>
