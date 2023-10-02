@@ -6,7 +6,7 @@
     <title>Document</title>
     <script >
      
-async function verificar(){
+    async function verificar(){
 let cep = document.getElementById('cep').value
 let date = document.getElementById('date').value
 let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({'cep' : cep}),'Content-type':'application/json', 
@@ -14,13 +14,30 @@ let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({
 let ifAge = await fetch('/api/age',{method:"POST",headers:{body:JSON.stringify({'age' : date}),'Content-type':'application/json', 
     'Accept':'application/json'}})
 
- if(ifAge.status==200 & ifCep.status==200){
 
-    document.getElementById("verificar").style.display='none'
-    document.getElementById("checkbox").style.display='block'
-    document.getElementById("submit").style.display='block'} }
+console.log(ifAge,ifCep)
+// if(ifCep.status != 200){
+// document.getElementById('error').style.display='block'
+// document.getElementById('erro').innerHTML = ifCep.data()
+// setInterval(() => {
+//     document.getElementById('erro').style.display='none'
+// }, 2000);
+// }
+// if(ifAge.status !=200){
+// document.getElementById('error').style.display='block'
+// document.getElementById('erro').innerHTML = ifAge.data()
+// setInterval(() => {
+// document.getElementById('erro').style.display='none'
+// }, 2000);  
+// }
 
-//https://cdn.apicep.com/file/apicep/36950-000.json
+// if(ifAge.status==200 & ifCep.status==200){
+
+//     document.getElementById("verificar").style.display='none'
+//     document.getElementById("checkbox").style.display='block'
+//     document.getElementById("submit").style.display='block'}
+ }
+
     </script>
     <style>
 body{
