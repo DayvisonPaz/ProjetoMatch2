@@ -8,15 +8,22 @@
      
 async function verificar(){
     
-let cep = document.getElementById('cep').value
-let date = document.getElementById('date').value
-let ifCep = await fetch('/api/cep',{method:"POST",headers:{'cep' : cep}})
-let ifAge = await fetch('/api/age',{method:"POST",headers:{'age' : date}})
+// let cep = document.getElementById('cep').value
+// let date = document.getElementById('date').value
 
-console.log(ifCep)
-console.log(ifAge)
+// let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({'cep' : cep}),'Content-type':'application/json', 
+//     'Accept':'application/json'}})
+// let ifAge = await fetch('/api/age',{method:"POST",headers:{body:JSON.stringify({'age' : date}),'Content-type':'application/json', 
+//     'Accept':'application/json'}})
 
-}
+document.getElementById("verificar").style.display='none'
+document.getElementById("checkbox").style.display='block'
+document.getElementById("submit").style.display='block'
+// if(ifAge.status==200 & ifCep.status==200){
+
+// }
+
+ }
 
 //https://cdn.apicep.com/file/apicep/36950-000.json
     </script>
@@ -119,7 +126,7 @@ height: 10%;
   margin-bottom: 5px;
 }
 .adress{
-    display: none;
+    
     margin-top: 10px;
     width: 90%;
 
@@ -138,7 +145,7 @@ padding: 0;
 margin: 0;
 }
 .submit{
-    display: none;
+display: none;
 }
 .cep{
     display: flex;
@@ -158,10 +165,10 @@ margin: 0;
 <form class="inputs" method="POST" action="/api/users">
 <input placeholder="name" required name='name'  id='name'class="name" type="text">
 <div class="line"><input class="date" id='date' type="date"><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>
-<input required class='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
+<input required class='adress' name='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
 <p id='checkbox' class="checkbox"><input required class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
-<input type="submit" class="submit" value='cadastrar' name=""/> </form>
-<button class="button" onclick="verificar()">verificar</button>
+<input type="submit" id='submit' class="submit" value='cadastrar' name=""/> </form>
+<button class="button" id='verificar' onclick="verificar()">verificar</button>
 
 
 <p class="date">18h00 GMT – 12h05 às 17h55 BRT</p>
