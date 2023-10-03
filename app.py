@@ -25,27 +25,28 @@ def index():
 
 @app.route("/api/cep",endpoint='cep',methods=['POST']) 
 async def index():
-    print('verificou cep')
-    data = request.json
-    content_type = request.headers.get('body')
-    json = request.json
-    print("json é",json)
-    data={"msg":"",'status':""}
-    newcep = ''
-    cep= json["cep"]
-    if(cep[5]=='-'):
-        newcep =cep
-    else: 
-        newcep = cep[0:5]+'-'+cep[5:11]
-    link = 'https://cdn.apicep.com/file/apicep/'+newcep+'.json'
-    res = requests.get(link)
-    response = json.loads(res.text)
-    state = response['state']
-    if state !='SP': return jsonify({'msg':"O cep informado nao e de SP",'Status':"401"})  
-    else:return jsonify({"status":"200"})
-    await asyncio.sleep(1)
-    return jsonify(data)
     
+    content_type = request.headers.get('body')
+    jsonData = request.json
+    if jsonData:
+        data={"msg":""}
+        newcep = ''
+        cep= jsonData
+        if(cep[5]=='-'):
+            newcep =cep
+        else: 
+            newcep = cep[0:5]+'-'+cep[5:11]
+        link = 'https://viacep.com.br/ws/'+newcep+'/json/'
+        res = requests.get(link)
+        response = json.loads(res.text)
+        state = response["uf"]
+
+        if(res.status_code !=200): return jsonify({'msg':"O cep informado nao valido",'status':400})
+        elif (state !='SP'): return jsonify({'msg':"O cep informado nao e de SP",'Status':400})  
+        else:return jsonify({"status":200,'msg':"cep validado"})
+        await asyncio.sleep(1)
+        return jsonify(data)
+    else: return jsonify({"status":400,'msg':"cep nao enviado"})
 @app.route("/api/users", methods = ['POST'])
 def get_users():
     username = request.form['name']
@@ -62,28 +63,25 @@ def get_users():
 
 @app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
-    print('verificou age')
-    data = request.json
     content_type = request.headers.get('body')
-    json = request.json
-    print("json é",json)
-    current_date = datetime.datetime.now()
-    print('requsitou age')
-    x = str(current_date)
-    born = json["age"]
-    y= int(born[6:10])
-    m = int(born[4:5])
-    d= int(born[0:2])
-    year = int(x[0:4])- y
-    month= int(x[5:7])- m
-    day= int(x[8:10])-d
-    data={"msg":'1'}
-    if (year>18): data['msg']='é de maior'
-    elif (year<17):  data['msg']='é de menor'
-    elif (month>=0 and day>=0):  data['msg']='é de maior '
-    else:  data['msg'] ='é de menor'
-    return jsonify(data)
-  
+    jsonData = request.json
+    if(jsonData):
+        current_date = datetime.datetime.now()
+        x = str(current_date)
+        born = jsonData
+        y= int(born[0:4])
+        m = int(born[5:7])
+        d= int(born[8:10])
+        year = int(x[0:4])- y
+        month= int(x[5:7])- m
+        day= int(x[8:10])-d
+        data={"msg":''}
+        if (year>18): data={"msg":"é de maior",'status':200}
+        elif (year<17): data={"msg":"é de menor",'status':400}
+        elif (month>=0 and day>=0):  data={"msg":"é de maior",'status':200}
+        else:  data={"msg":"é de menor",'status':400}
+        return jsonify(data)
+    else: return jsonify({"status":400,"msg":"data nao preenchida"})
        
   
     

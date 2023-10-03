@@ -6,36 +6,81 @@
     <title>Document</title>
     <script >
      
-    async function verificar(){
+async function verificar(){
+    
 let cep = document.getElementById('cep').value
 let date = document.getElementById('date').value
-let ifCep = await fetch('/api/cep',{method:"POST",headers:{body:JSON.stringify({'cep' : cep}),'Content-type':'application/json', 
-    'Accept':'application/json'}})
-let ifAge = await fetch('/api/age',{method:"POST",headers:{body:JSON.stringify({'age' : date}),'Content-type':'application/json', 
-    'Accept':'application/json'}})
+
+let status = {"age":"","cep":"","ageMsg":"","cepMsg":""}
+let ifCep = await fetch('/api/cep',
+{
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(cep), // body data type must match "Content-Type" header
+  }).then( resposta => {
+    return resposta.json()
+})
+.then ( json => {
+    status.cep = json.status
+    console.log(json.msg)
+    status.cepMsg = json.msg
+    return json;
+})
+
+let ifAge = await fetch('/api/age',{
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(date), // body data type must match "Content-Type" header
+  }).then( resposta => {
+   
+    return resposta.json()
+})
+.then ( json => {
+    console.log(json.msg)
+    status.age = json.status
+    status.ageMsg = json.msg
+    return json;
+})
+console.log(status)
+if(status.cep===200 & status.age===200){
+    document.getElementById("verificar").style.display='none'
+    document.getElementById("checkbox").style.display='block'
+    document.getElementById("submit").style.display='block'
+    document.getElementById("adress").style.display='block'
+    
+}else{
+
+ 
+document.getElementById('erro').style.display='block'
+if(status.age!==200){
+    document.getElementById('erro').innerHTML = status.ageMsg
+}
+else{
+    document.getElementById('erro').innerHTML = status.cepMsg
+}
+
+setInterval(() => {
+    document.getElementById('erro').style.display='none'
+}, 4000);  
+}
 
 
-console.log(ifAge,ifCep)
-// if(ifCep.status != 200){
-// document.getElementById('error').style.display='block'
-// document.getElementById('erro').innerHTML = ifCep.data()
-// setInterval(() => {
-//     document.getElementById('erro').style.display='none'
-// }, 2000);
-// }
-// if(ifAge.status !=200){
-// document.getElementById('error').style.display='block'
-// document.getElementById('erro').innerHTML = ifAge.data()
-// setInterval(() => {
-// document.getElementById('erro').style.display='none'
-// }, 2000);  
-// }
-
-// if(ifAge.status==200 & ifCep.status==200){
-
-//     document.getElementById("verificar").style.display='none'
-//     document.getElementById("checkbox").style.display='block'
-//     document.getElementById("submit").style.display='block'}
  }
 
     </script>
@@ -138,13 +183,13 @@ height: 10%;
   margin-bottom: 5px;
 }
 .adress{
-    
+    display: none;
     margin-top: 10px;
     width: 90%;
 
 }
 .menssage{
-visibility: hidden;
+display: none;
 color: #fff;
 font-size: 20px;
 background:green;
@@ -152,12 +197,19 @@ width:full;
 height: 10%;
 }
 .checkbox{
-display: none;
+
 padding: 0;
 margin: 0;
 }
 .submit{
-display: none;
+    display: none;
+    width: 20%;
+height: 10%;
+  background-color:green;
+  color: #fff;
+  border:none;
+  margin-bottom: 5px;
+
 }
 .cep{
     display: flex;
@@ -165,6 +217,7 @@ display: none;
 .line{
     display: flex;
 }
+
     </style>
 </head>
 <body>
@@ -177,7 +230,7 @@ display: none;
 <form class="inputs" method="POST" action="/api/users">
 <input placeholder="name" required name='name'  id='name'class="name" type="text">
 <div class="line"><input class="date" id='date' type="date"><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>
-<input required class='adress' name='adress' id="name" placeholder="Insira seu endereço" type="text" name="" id="">
+<input required class='adress' name='adress' id="" placeholder="Insira seu endereço" type="text" name="" id="">
 <p id='checkbox' class="checkbox"><input required class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
 <input type="submit" id='submit' class="submit" value='cadastrar' name=""/> </form>
 <button class="button" id='verificar' onclick="verificar()">verificar</button>
