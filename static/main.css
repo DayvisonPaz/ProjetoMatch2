@@ -16,35 +16,15 @@ body{
         background: #000;
     }
     /* Extra small devices (phones, 600px and down) */
-    @media only screen and (max-width: 600px) {
-    .ticket{
-    background: #000;
-    width: 90%;
-    height: 25%;
     
-    }
-    .logo{
-        width: 29%;
-    }
-    .photo{
-        height: 100%;
-    }
-    }
-    /* Extra large devices (large laptops and desktops, 1200px and up) */
-    @media only screen and (min-width: 1200px) {
-    .ticket{
-    width: 900px;
-    height: 35%;
-    }
-    }
     .logo{
         background: #000;
         display: flex;
-        height: 100%;
+        
     
     }
     .photo{
-        width: 100%;
+ 
     background: #000;
     display: flex;
     }
@@ -140,3 +120,52 @@ body{
     .line{
         display: flex;
     }
+    @media only screen and (max-width: 700px) {
+    .ticket{color: white;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 20px 10px 10px #2a377b;
+            border: #0001 1px solid;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0);
+            
+            
+     }
+   .photo{
+    width:30vh;    
+}
+.form{
+    width: 100%;
+    height: 30%;
+}
+.bar{
+display: none;    
+}
+
+    }
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+    .ticket{
+    width: 900px;
+    height: 35%;
+    }
+    }
+    @media only screen and (max-width: 1200px) {
+        .ticket{
+        width: 900px;
+        height: 39%;
+        }
+        
+    }
+@media only screen and (max-width: 920px) {
+            .ticket{
+            width: 7500px;
+            height: 39%;
+        }
+            
+}
