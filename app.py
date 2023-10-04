@@ -49,13 +49,17 @@ async def index():
 @app.route("/api/users", methods = ['POST'])
 def get_users():
 
-    username = request.form['name']
-    cep = request.form['cep']
-    adress = request.form['adress']
-    date = request.form['date']
+    # username = request.form['name']
+    # cep = request.form['cep']
+    # adress = request.form['adress']
+    # date = request.form['date']
     db = client['match']
     collection = db['users']
-    collection.insert_one({'name':username,'cep':cep,'adress':adress,"date":date})
+    vagas  = collection.find_one({"name":"vagas"})
+    print(vagas)
+    collection.find_one({"name":"vagas"}).update_one({"total":vagas["total"+1]})
+    
+    #collection.insert_one({'name':username,'cep':cep,'adress':adress,"date":date})
     return "usuario cadastrado com sucesso"
 @app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
