@@ -1,0 +1,142 @@
+body{
+    background-image: url('https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_1280.jpg');
+    display: flex;
+    width:100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    }
+    .ticket{color: white;
+        box-shadow: 20px 10px 10px #2a377b;
+        border: #0001 1px solid;
+        display: flex;
+        width: 90%;
+        height: 30%;
+        background: #000;
+    }
+    /* Extra small devices (phones, 600px and down) */
+    @media only screen and (max-width: 600px) {
+    .ticket{
+    background: #000;
+    width: 90%;
+    height: 25%;
+    
+    }
+    .logo{
+        width: 29%;
+    }
+    .photo{
+        height: 100%;
+    }
+    }
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+    .ticket{
+    width: 900px;
+    height: 35%;
+    }
+    }
+    .logo{
+        background: #000;
+        display: flex;
+        height: 100%;
+    
+    }
+    .photo{
+        width: 100%;
+    background: #000;
+    display: flex;
+    }
+    .bar{
+        border-left: #000 dotted 2px;
+        width: 10%;
+        height: 100%;
+        background: white;
+    }
+    .form{
+     background-color: #01010b;	
+    text-align: center;
+    height: 100%;
+    width: 60%;    
+    }
+    .name{
+    width: 90%;
+    color: #000;
+    margin: 10px;
+    }
+    .date {
+        
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: auto;
+    }
+    .event{
+        font-size: 25px;
+        font-style: oblique;
+       
+        color: #000;
+    }
+    input{font-size: 20px;
+    margin: 10px;}
+    .bar{
+        background-image: url('https://cdn.pixabay.com/photo/2022/02/07/19/13/barcode-7000118_1280.png');
+         
+    }
+    .button{
+    width: 20%;
+    height: 10%;
+      background-color:green;
+      color: #fff;
+      border:none;
+      margin-bottom: 5px;
+      display: none;
+    }
+    .adress{
+        
+        margin-top: 10px;
+        width: 90%;
+    }
+    .menssage{
+    display: none;
+    color: #fff;
+    font-size: 20px;
+    background:green;
+    width:full;
+    height: 10%;
+    }
+    .checkbox{
+    
+    padding: 0;
+    margin: 0;
+    }
+    .enviar{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .submit{
+    
+    width: 20%;
+    height: 10%;
+    background-color:green;
+    color: #fff;
+    border:none;
+    margin-bottom: auto;
+    }
+    .inputs{
+      align-items: center;
+      justify-content: center;  
+    }
+    .cep{
+        display: flex;
+    }
+    .line{
+        display: flex;
+    }

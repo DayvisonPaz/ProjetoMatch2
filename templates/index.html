@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -59,14 +60,14 @@ let ifAge = await fetch('/api/age',{
 })
 console.log(status)
 if(status.cep===200 & status.age===200){
+    
     document.getElementById("verificar").style.display='none'
     document.getElementById("checkbox").style.display='block'
     document.getElementById("submit").style.display='block'
     document.getElementById("adress").style.display='block'
-    
+    document.getElementById('erro').innerHTML = 'Tudo correto, prossiga'
 }else{
-
- 
+    document.getElementById("erro").style.backgroundColor='red'
 document.getElementById('erro').style.display='block'
 if(status.age!==200){
     document.getElementById('erro').innerHTML = status.ageMsg
@@ -84,141 +85,7 @@ setInterval(() => {
  }
 
     </script>
-    <style>
-body{
-background-image: url('https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_1280.jpg');
-display: flex;
-width:100vw;
-height: 100vh;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
-.ticket{color: white;
-    box-shadow: 20px 10px 10px #2a377b;
-    border: #0001 1px solid;
-    display: flex;
-    width: 90%;
-    height: 30%;
-    background: #000;
-}
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-.ticket{
-background: #000;
-width: 90%;
-height: 25%;
-
-}
-.logo{
-    width: 29%;
-}
-.photo{
-    height: 100%;
-}
-}
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-.ticket{
-width: 900px;
-height: 35%;
-}
-}
-.logo{
-    background: #000;
-    display: flex;
-    height: 100%;
-
-}
-.photo{
-    width: 100%;
-background: #000;
-display: flex;
-}
-.bar{
-    border-left: #000 dotted 2px;
-    width: 10%;
-    height: 100%;
-    background: white;
-}
-.form{
- background-color: #01010b;	
-text-align: center;
-height: 100%;
-width: 60%;    
-}
-.name{
-width: 90%;
-color: #000;
-margin: 10px;
-}
-.date {
-    
-	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
-	font-weight: 700;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-    margin: auto;
-}
-.event{
-    font-size: 25px;
-    font-style: oblique;
-   
-    color: #000;
-}
-input{font-size: 20px;
-margin: 10px;}
-.bar{
-    background-image: url('https://cdn.pixabay.com/photo/2022/02/07/19/13/barcode-7000118_1280.png');
-     
-}
-.button{
-width: 20%;
-height: 10%;
-  background-color:green;
-  color: #fff;
-  border:none;
-  margin-bottom: 5px;
-}
-.adress{
-    display: none;
-    margin-top: 10px;
-    width: 90%;
-
-}
-.menssage{
-display: none;
-color: #fff;
-font-size: 20px;
-background:green;
-width:full;
-height: 10%;
-}
-.checkbox{
-
-padding: 0;
-margin: 0;
-}
-.submit{
-    display: none;
-    width: 20%;
-height: 10%;
-  background-color:green;
-  color: #fff;
-  border:none;
-  margin-bottom: 5px;
-
-}
-.cep{
-    display: flex;
-}
-.line{
-    display: flex;
-}
-
-    </style>
+ 
 </head>
 <body>
 <div class="ticket">
@@ -229,10 +96,12 @@ height: 10%;
 <p class="date"> Domingo 8 de outubro de 2023</p>
 <form class="inputs" method="POST" action="/api/users">
 <input placeholder="name" required name='name'  id='name'class="name" type="text">
-<div class="line"><input class="date" id='date' type="date"><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>
-<input required class='adress' name='adress' id="" placeholder="Insira seu endereço" type="text" name="" id="">
+<div class="line"><input class="date" id='date' type="date" name='date'><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>
+<input required id='adress' class='adress' name='adress' id="" placeholder="Insira seu endereço" type="text" name="" id="">
 <p id='checkbox' class="checkbox"><input required class="" type="checkbox" name="" id=""> Afirmo compreender que o evento irá ocorrer à noite</p>
-<input type="submit" id='submit' class="submit" value='cadastrar' name=""/> </form>
+ 
+<div class='enviar'><input type="submit" id='submit' class="submit" value='cadastrar' name=""/></div>
+</form>
 <button class="button" id='verificar' onclick="verificar()">verificar</button>
 
 

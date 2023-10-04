@@ -25,7 +25,6 @@ def index():
 
 @app.route("/api/cep",endpoint='cep',methods=['POST']) 
 async def index():
-    
     content_type = request.headers.get('body')
     jsonData = request.json
     if jsonData:
@@ -49,18 +48,15 @@ async def index():
     else: return jsonify({"status":400,'msg':"cep nao enviado"})
 @app.route("/api/users", methods = ['POST'])
 def get_users():
+
     username = request.form['name']
     cep = request.form['cep']
     adress = request.form['adress']
-    adress = request.form['date']
-    return 'username'
+    date = request.form['date']
     db = client['match']
     collection = db['users']
     collection.insert_one({'name':username,'cep':cep,'adress':adress,"date":date})
-
-
-
-
+    return "usuario cadastrado com sucesso"
 @app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
     content_type = request.headers.get('body')
