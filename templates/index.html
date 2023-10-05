@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script >
+
+fetch('/api/vagas').then( resposta => {
+    return resposta.json()
+}).then ( json => {
+    let vagas = 50 -json
+    document.getElementById('vagas').innerHTML = `${vagas} vagas`
+})
+
      
 async function verificar(){
     
@@ -32,7 +40,7 @@ let ifCep = await fetch('/api/cep',
 })
 .then ( json => {
     status.cep = json.status
-    console.log(json.msg)
+
     status.cepMsg = json.msg
     return json;
 })
@@ -54,12 +62,12 @@ let ifAge = await fetch('/api/age',{
     return resposta.json()
 })
 .then ( json => {
-    console.log(json.msg)
+ 
     status.age = json.status
     status.ageMsg = json.msg
     return json;
 })
-console.log(status)
+
 if(status.cep===200 & status.age===200){
     
     document.getElementById("verificar").style.display='none'
@@ -88,13 +96,16 @@ setInterval(() => {
     </script>
  
 </head>
-<body>
-<div class="ticket">
+<body>  
     
-<div class="logo"><img class='photo' src="https://media.istockphoto.com/id/519898108/vector/astronomical-observatory-telescope.jpg?s=612x612&w=0&k=20&c=tKwzqkWqaBYeUoIf3F8ZltUdyMEGFis9kYm1_9EfOR4=" alt=""></div>
+<div class="ticket">
+  
+<div class="logo">
+    <div class='vagas' id="vagas"> vagas</div>
+    <img class='photo' src="https://media.istockphoto.com/id/519898108/vector/astronomical-observatory-telescope.jpg?s=612x612&w=0&k=20&c=tKwzqkWqaBYeUoIf3F8ZltUdyMEGFis9kYm1_9EfOR4=" alt=""></div>
 <div class="form"> 
     <div id="erro" class="menssage">error</div>
-<p class="date"> Domingo 8 de outubro de 2023</p>
+<p class="date"> Domingo 29 de outubro de 2023</p>
 <form class="inputs" method="POST" action="/api/users">
 <input placeholder="name" required name='name'  id='name'class="name" type="text">
 <div class="line"><input class="date" id='date' type="date" name='date'><input id="cep" required name="cep" placeholder="cep" class="cep" type="text"></div>

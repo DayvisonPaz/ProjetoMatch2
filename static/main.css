@@ -169,3 +169,15 @@ display: none;
         }
             
 }
+.vagas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 50px;
+  width: 50px;
+  background-color: brown;
+  border-radius: 50%;
+    margin-left: -10px;
+    position: absolute;
+}

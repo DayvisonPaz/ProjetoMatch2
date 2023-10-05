@@ -56,11 +56,13 @@ def get_users():
     db = client['match']
     collection = db['users']
     vagas  = collection.find_one({"name":"vagas"})
-    print(vagas)
-    collection.find_one({"name":"vagas"}).update_one({"total":vagas["total"+1]})
+  
+    
+    total = { "$set": { 'total': vagas["total"]+1 } }
+    collection.update_one({"name":"vagas"},total,upsert=True)
+    return render_template('finalizado.html')
     
     #collection.insert_one({'name':username,'cep':cep,'adress':adress,"date":date})
-    return "usuario cadastrado com sucesso"
 @app.route("/api/age",endpoint='age',methods = ['POST'])
 def index():
     content_type = request.headers.get('body')
@@ -84,6 +86,14 @@ def index():
     else: return jsonify({"status":400,"msg":"data nao preenchida"})
        
   
+@app.route("/api/vagas",endpoint='vagas')
+def get_users():
+
+    db = client['match']
+    collection = db['users']
+    vagas  = collection.find_one({"name":"vagas"})
+    print(vagas)
+    return jsonify(vagas["total"])
     
 
 
