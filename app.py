@@ -92,7 +92,7 @@ def get_users():
     db = client['match']
     collection = db['users']
     vagas  = collection.find_one({"name":"vagas"})
-    print(vagas)
+ 
     return jsonify(vagas["total"])
     
 
