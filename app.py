@@ -79,7 +79,7 @@ def index():
         day= int(x[8:10])-d
         data={"msg":''}
         if (year>18): data={"msg":"é de maior",'status':200}
-        elif (year<17): data={"msg":"é de menor",'status':400}
+        elif (year<17): data={"msg":"Só Maiores de Idade Permitidos",'status':400}
         elif (month>=0 and day>=0):  data={"msg":"é de maior",'status':200}
         else:  data={"msg":"é de menor",'status':400}
         return jsonify(data)

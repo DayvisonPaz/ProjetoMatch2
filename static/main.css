@@ -1,12 +1,20 @@
 body{
-    background-image: url('https://cdn.pixabay.com/photo/2011/12/14/12/21/orion-nebula-11107_1280.jpg');
+    background-image: url('https://starwalk.space/gallery/images/what-is-space/1140x641.jpg');
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
     display: flex;
     width:100vw;
     height: 100vh;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    flex-direction: column;
+    color: #fff;
     }
+.logo{
+    width: 40%;
+}
     .ticket{color: white;
         box-shadow: 20px 10px 10px #2a377b;
         border: #0001 1px solid;
@@ -181,3 +189,16 @@ display: none;
     margin-left: -10px;
     position: absolute;
 }
+@media only screen and (max-width: 920px) {
+
+.ticket{
+    background-color: #2a377b;
+    width: 100vw;
+}
+.button{
+    height: 30px;
+}
+.menssage{
+    height: 40px;
+}
+  }
